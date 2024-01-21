@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  task-manager-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-manager-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - task-manager-db
+    restart: always
+
+  task-manager-db:
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    container_name: task-manager-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: task_db
+    volumes:
+      - ./db-init-scripts:/docker-entrypoint-initdb.d/
+    restart: always
