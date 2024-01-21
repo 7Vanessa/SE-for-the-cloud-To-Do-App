@@ -1,0 +1,35 @@
+/* ToDoList.css */
+
+.todo-list {
+    max-width: 500px;
+    margin: auto;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-task-container {
+    margin-top: 20px;
+}
+
+.add-task-container input {
+    padding: 10px;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.add-task-container button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-task-container button:hover {
+    background-color: #45a049;
+}
