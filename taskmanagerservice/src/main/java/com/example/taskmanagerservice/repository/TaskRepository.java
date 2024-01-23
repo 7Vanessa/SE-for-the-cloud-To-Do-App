@@ -28,7 +28,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findTop5ByOrderByDueDateAsc();
 
-    // Utilisation de l'annotation @Query pour une requête SQL personnalisée
     @Query("SELECT t FROM Task t WHERE t.title LIKE %:keyword%")
     List<Task> searchTasks(@Param("keyword") String keyword);
 }

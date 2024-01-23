@@ -7,6 +7,7 @@ import com.example.taskmanagerservice.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,13 @@ public class TaskManagerService {
     }
 
     public Task createTask(TaskDTO taskDTO) {
+        // Log pour afficher la date reçue
+        System.out.println("Received dueDate in TaskManagerService: " + taskDTO.getDueDate());
+
+        // Log pour afficher la date après la conversion
+        LocalDateTime convertedDueDate = taskDTO.getDueDate();
+        System.out.println("Converted dueDate in TaskManagerService: " + convertedDueDate);
+
         // Convert TaskDTO to Task entity
         Task task = taskDTO.toEntity();
 

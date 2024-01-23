@@ -1,6 +1,7 @@
 package com.example.taskmanagerservice.dto;
 
 import com.example.taskmanagerservice.entity.Task;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class TaskDTO {
 
     private String description;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "Due date is required")
     private LocalDateTime dueDate;
 
