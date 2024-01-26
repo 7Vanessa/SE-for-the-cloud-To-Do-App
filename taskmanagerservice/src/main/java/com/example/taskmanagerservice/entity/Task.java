@@ -20,12 +20,15 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userId;
+
     private String title;
     private String description;
     private boolean completed;
 
     // Constructors
-    public Task(String title, String description, boolean completed) {
+    public Task(Long userId, String title, String description, boolean completed) {
+        this.userId = userId;
         this.title = title;
         this.description = description;
         this.completed = completed;
