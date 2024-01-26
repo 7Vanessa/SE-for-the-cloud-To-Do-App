@@ -1,27 +1,19 @@
-version: '3'
-
 services:
-  task-manager-service:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: task-manager-service
-    ports:
-      - "8081:8081"
-    depends_on:
-      - task-manager-db
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=caching_sha2_password
     restart: always
-
-  task-manager-db:
-    build:
-      context: .
-      dockerfile: db/Dockerfile
-    container_name: task-manager-db
-    ports:
-      - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: task_db
+      MYSQL_DATABASE: 'task-db'
+      MYSQL_ROOT_PASSWORD: 'password'
     volumes:
-      - ./db-init-scripts:/docker-entrypoint-initdb.d/
-    restart: always
+      - ./db-init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3308:3306"
+  task-manager:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
