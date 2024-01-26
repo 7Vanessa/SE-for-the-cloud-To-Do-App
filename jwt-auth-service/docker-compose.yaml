@@ -1,0 +1,19 @@
+services:
+  mysql-auth:
+    image: mysql:8.0
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'auth_service_db'
+      MYSQL_ALLOW_EMPTY_PASSWORD: YES
+    volumes:
+      - ./db-init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3309:3309"
+  auth:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql-auth
