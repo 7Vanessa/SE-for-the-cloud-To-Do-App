@@ -7,13 +7,19 @@ services:
       MYSQL_DATABASE: 'task_db'
       MYSQL_ALLOW_EMPTY_PASSWORD: YES
     volumes:
-      - ./db-init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./taskmanagerservice/db-init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3308:3306"
   task-manager:
     build:
-      dockerfile: Dockerfile
+      dockerfile: taskmanagerservice/Dockerfile
     ports:
       - "8081:8081"
     depends_on:
       - mysql
+  to-do-frontend:
+    build:
+      dockerfile: front/Dockerfile
+    container_name: to-do-frontend
+    ports:
+      - "3000:80"
