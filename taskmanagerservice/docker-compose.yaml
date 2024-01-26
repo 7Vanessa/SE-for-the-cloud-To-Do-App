@@ -4,8 +4,8 @@ services:
     command: --default-authentication-plugin=caching_sha2_password
     restart: always
     environment:
-      MYSQL_DATABASE: 'task-db'
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'task_db'
+      MYSQL_ALLOW_EMPTY_PASSWORD: YES
     volumes:
       - ./db-init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
@@ -14,6 +14,6 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - mysql
