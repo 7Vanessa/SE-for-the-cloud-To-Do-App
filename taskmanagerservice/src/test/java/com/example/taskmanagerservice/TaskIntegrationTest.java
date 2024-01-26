@@ -13,10 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -31,11 +29,8 @@ class TaskIntegrationTest {
 
     @Test
     void testCreateTaskAndVerifyInDatabase() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
 
-        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", LocalDateTime.parse(formattedDateTime, formatter), false);
+        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
 
         ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO);
 
@@ -47,7 +42,6 @@ class TaskIntegrationTest {
 
         assertEquals(taskDTO.getTitle(), createdTask.getTitle());
         assertEquals(taskDTO.getDescription(), createdTask.getDescription());
-        assertEquals(taskDTO.getDueDate(), createdTask.getDueDate());
         assertEquals(taskDTO.isCompleted(), createdTask.isCompleted());
     }
 
@@ -66,11 +60,7 @@ class TaskIntegrationTest {
     void testUpdateTask() {
         Long taskId = createTaskAndGetId();
 
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
-
-        TaskDTO updatedTaskDTO = new TaskDTO("Updated Task", "Updated Description", LocalDateTime.parse(formattedDateTime, formatter), true);
+        TaskDTO updatedTaskDTO = new TaskDTO("Updated Task", "Updated Description", true);
 
         ResponseEntity<TaskDTO> updateResponse = taskController.updateTask(taskId, updatedTaskDTO);
 
@@ -80,16 +70,11 @@ class TaskIntegrationTest {
 
         assertEquals(updatedTaskDTO.getTitle(), updatedTask.getTitle());
         assertEquals(updatedTaskDTO.getDescription(), updatedTask.getDescription());
-        assertEquals(updatedTaskDTO.getDueDate(), updatedTask.getDueDate());
         assertEquals(updatedTaskDTO.isCompleted(), updatedTask.isCompleted());
     }
 
     private Long createTaskAndGetId() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
-
-        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", LocalDateTime.parse(formattedDateTime, formatter), false);
+        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
 
         ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO);
 

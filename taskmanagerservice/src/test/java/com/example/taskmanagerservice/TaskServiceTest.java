@@ -11,9 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,8 +31,8 @@ class TaskManagerServiceTest {
 
     @Test
     void testCreateTask() {
-        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", LocalDateTime.now(), false);
-        Task task = new Task(taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.getDueDate(), taskDTO.isCompleted());
+        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
+        Task task = new Task(taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.isCompleted());
 
         when(taskRepository.save(any(Task.class))).thenReturn(task);
 
@@ -44,7 +41,6 @@ class TaskManagerServiceTest {
         assertNotNull(createdTask);
         assertEquals(taskDTO.getTitle(), createdTask.getTitle());
         assertEquals(taskDTO.getDescription(), createdTask.getDescription());
-        assertEquals(taskDTO.getDueDate(), createdTask.getDueDate());
         assertEquals(taskDTO.isCompleted(), createdTask.isCompleted());
 
         verify(taskRepository, times(1)).save(any(Task.class));
@@ -53,7 +49,7 @@ class TaskManagerServiceTest {
     @Test
     void testGetTask() {
         Long taskId = 1L;
-        Task task = new Task("Test Task", "Description", LocalDateTime.now(), false);
+        Task task = new Task("Test Task", "Description", false);
 
         when(taskRepository.findById(taskId)).thenReturn(Optional.of(task));
 
@@ -62,7 +58,6 @@ class TaskManagerServiceTest {
         assertNotNull(retrievedTask);
         assertEquals(task.getTitle(), retrievedTask.getTitle());
         assertEquals(task.getDescription(), retrievedTask.getDescription());
-        assertEquals(task.getDueDate(), retrievedTask.getDueDate());
         assertEquals(task.isCompleted(), retrievedTask.isCompleted());
 
         verify(taskRepository, times(1)).findById(taskId);

@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +29,8 @@ public class TaskControllerTest {
 
     @Test
     void testCreateTask() {
-        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", LocalDateTime.now(), false);
-        Task task = new Task(taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.getDueDate(), taskDTO.isCompleted());
+        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
+        Task task = new Task(taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.isCompleted());
 
         when(taskManagerService.createTask(taskDTO)).thenReturn(task);
 
@@ -40,7 +39,6 @@ public class TaskControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(taskDTO.getTitle(), response.getBody().getTitle());
         assertEquals(taskDTO.getDescription(), response.getBody().getDescription());
-        assertEquals(taskDTO.getDueDate(), response.getBody().getDueDate());
         assertEquals(taskDTO.isCompleted(), response.getBody().isCompleted());
 
         verify(taskManagerService, times(1)).createTask(taskDTO);
@@ -49,7 +47,7 @@ public class TaskControllerTest {
     @Test
     void testGetTask() {
         Long taskId = 1L;
-        Task task = new Task("Test Task", "Description", LocalDateTime.now(), false);
+        Task task = new Task("Test Task", "Description", false);
 
         when(taskManagerService.getTask(taskId)).thenReturn(task);
 
@@ -58,7 +56,6 @@ public class TaskControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(task.getTitle(), response.getBody().getTitle());
         assertEquals(task.getDescription(), response.getBody().getDescription());
-        assertEquals(task.getDueDate(), response.getBody().getDueDate());
         assertEquals(task.isCompleted(), response.getBody().isCompleted());
 
         verify(taskManagerService, times(1)).getTask(taskId);
@@ -67,8 +64,8 @@ public class TaskControllerTest {
     @Test
     void testGetAllTasks() {
         List<Task> tasks = Arrays.asList(
-                new Task("Task 1", "Description 1", LocalDateTime.now(), false),
-                new Task("Task 2", "Description 2", LocalDateTime.now(), true)
+                new Task("Task 1", "Description 1", false),
+                new Task("Task 2", "Description 2", true)
         );
 
         when(taskManagerService.getAllTasks()).thenReturn(tasks);
@@ -84,8 +81,8 @@ public class TaskControllerTest {
     @Test
     void testUpdateTask() {
         Long taskId = 1L;
-        TaskDTO updatedTaskDTO = new TaskDTO("Updated Task", "Updated Description", LocalDateTime.now(), true);
-        Task updatedTask = new Task(updatedTaskDTO.getTitle(), updatedTaskDTO.getDescription(), updatedTaskDTO.getDueDate(), updatedTaskDTO.isCompleted());
+        TaskDTO updatedTaskDTO = new TaskDTO("Updated Task", "Updated Description", true);
+        Task updatedTask = new Task(updatedTaskDTO.getTitle(), updatedTaskDTO.getDescription(), updatedTaskDTO.isCompleted());
 
         when(taskManagerService.updateTask(taskId, updatedTaskDTO)).thenReturn(updatedTask);
 
@@ -94,7 +91,6 @@ public class TaskControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(updatedTaskDTO.getTitle(), response.getBody().getTitle());
         assertEquals(updatedTaskDTO.getDescription(), response.getBody().getDescription());
-        assertEquals(updatedTaskDTO.getDueDate(), response.getBody().getDueDate());
         assertEquals(updatedTaskDTO.isCompleted(), response.getBody().isCompleted());
 
         verify(taskManagerService, times(1)).updateTask(taskId, updatedTaskDTO);

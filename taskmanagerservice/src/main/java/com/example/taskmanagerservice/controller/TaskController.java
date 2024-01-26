@@ -74,7 +74,6 @@ public class TaskController {
                 task.getId(),
                 task.getTitle(),
                 task.getDescription(),
-                task.getDueDate(),
                 task.isCompleted()
         );
     }
