@@ -4,7 +4,7 @@ services:
     command: --default-authentication-plugin=caching_sha2_password
     restart: always
     environment:
-      MYSQL_DATABASE: 'task-db'
+      MYSQL_DATABASE: 'task_db'
       MYSQL_ALLOW_EMPTY_PASSWORD: YES
     volumes:
       - ./db-init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
