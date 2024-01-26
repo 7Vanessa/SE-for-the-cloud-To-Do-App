@@ -5,16 +5,16 @@ FROM maven:latest AS BUILD
 WORKDIR /app
 
 # Copier le fichier pom.xml pour télécharger les dépendances
-COPY pom.xml .
+COPY taskmanagerservice/pom.xml .
 
 # Télécharger les dépendances Maven
 RUN mvn dependency:go-offline
 
 # Copier les sources de l'application
-COPY src src
+COPY taskmanagerservice/src src
 
 # Copier le fichier de configuration
-COPY src/main/resources/application.properties src/main/resources/
+COPY taskmanagerservice/src/main/resources/application.properties src/main/resources/
 
 # Compiler les sources et créer le jar exécutable
 RUN mvn package -DskipTests
