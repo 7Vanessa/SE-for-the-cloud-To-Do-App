@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
@@ -24,13 +22,12 @@ public class Task {
 
     private String title;
     private String description;
-    private LocalDateTime dueDate;
     private boolean completed;
 
-    public Task(String title, String description, LocalDateTime dueDate, boolean completed) {
+    // Constructors
+    public Task(String title, String description, boolean completed) {
         this.title = title;
         this.description = description;
-        this.dueDate = dueDate;
         this.completed = completed;
     }
 

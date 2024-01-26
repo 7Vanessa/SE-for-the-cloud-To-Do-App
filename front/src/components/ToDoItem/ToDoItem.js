@@ -25,16 +25,6 @@ function TodoItem({ task, updateTask, fetchTasks }) {
         }
     };
 
-    const formatDate = (dateString) => {
-        if (!dateString) {
-            return "N/A";
-        }
-
-        const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    };
-
-
     return (
         <div className={`todo-item ${task.completed ? 'completed' : ''}`}>
             <div className="checkbox-container">
@@ -47,7 +37,6 @@ function TodoItem({ task, updateTask, fetchTasks }) {
             <div className="task-details">
                 <p><strong>{task.title}</strong></p>
                 <p>{task.description}</p>
-                <p><strong>Due Date:</strong> {formatDate(task.dueDate)}</p>
             </div>
             <button className={`delete-button ${task.completed ? 'completed' : ''}`} onClick={handleDeleteTask}>Delete</button>
         </div>

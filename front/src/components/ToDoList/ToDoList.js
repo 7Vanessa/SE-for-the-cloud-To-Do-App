@@ -8,7 +8,6 @@ function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [text, setText] = useState('');
     const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
 
     const baseUrl = 'http://localhost:8081';
 
@@ -27,16 +26,9 @@ function TodoList() {
 
     const addTask = async () => {
         try {
-            const formattedDueDate = dueDate
-                ? new Date(`${dueDate} 00:00:00`).toISOString().slice(0, 19).replace('T', ' ')
-                : null;
-
-            console.log('formattedDueDate:', formattedDueDate);
-
             const newTask = {
                 title: text,
                 description: description,
-                due_date: new Date(),
                 completed: false,
             };
 
@@ -44,14 +36,10 @@ function TodoList() {
             fetchTasks();
             setText('');
             setDescription('');
-            setDueDate('');
         } catch (error) {
             console.error('Error adding task:', error);
         }
     };
-
-
-
 
     const deleteTask = async (id) => {
         try {
@@ -86,7 +74,7 @@ function TodoList() {
                     updateTask={updateTask}
                     deleteTask={deleteTask}
                     toggleCompleted={toggleCompleted}
-                    fetchTasks={fetchTasks}  // Passer la fonction fetchTasks à TodoItem
+                    fetchTasks={fetchTasks}
                 />
             ))}
             <div className="add-task-container">
@@ -99,12 +87,6 @@ function TodoList() {
                     placeholder="Description"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
-                />
-                <input
-                    type="date"
-                    placeholder="Due Date"
-                    value={dueDate}
-                    onChange={e => setDueDate(e.target.value)}
                 />
                 <button onClick={addTask}>Add</button>
             </div>
