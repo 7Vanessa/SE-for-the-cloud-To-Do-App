@@ -30,9 +30,9 @@ class TaskIntegrationTest {
     @Test
     void testCreateTaskAndVerifyInDatabase() {
 
-        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
+        TaskDTO taskDTO = new TaskDTO(null, "Test Task", "Description", false);
 
-        ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO);
+        ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO, "dummyJwtToken");
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
@@ -60,7 +60,7 @@ class TaskIntegrationTest {
     void testUpdateTask() {
         Long taskId = createTaskAndGetId();
 
-        TaskDTO updatedTaskDTO = new TaskDTO("Updated Task", "Updated Description", true);
+        TaskDTO updatedTaskDTO = new TaskDTO(null, "Updated Task", "Updated Description", true);
 
         ResponseEntity<TaskDTO> updateResponse = taskController.updateTask(taskId, updatedTaskDTO);
 
@@ -74,9 +74,9 @@ class TaskIntegrationTest {
     }
 
     private Long createTaskAndGetId() {
-        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
+        TaskDTO taskDTO = new TaskDTO(null, "Test Task", "Description", false);
 
-        ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO);
+        ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO, "dummyJwtToken");
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
