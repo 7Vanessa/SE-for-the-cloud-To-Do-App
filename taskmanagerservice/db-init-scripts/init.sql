@@ -6,7 +6,6 @@ USE task_db;
 
 CREATE TABLE task (
                       id INT AUTO_INCREMENT PRIMARY KEY,
-                      userId INT NOT NULL,
                       title VARCHAR(255) NOT NULL,
                       description VARCHAR(1000),
                       completed BOOLEAN
