@@ -1,4 +1,4 @@
-package com.example.studentreportwebservice;
+package com.example.todoappfilestorageservice;
 
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;

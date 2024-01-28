@@ -1,41 +1,34 @@
-package com.example.studentreportwebservice.controller;
+package com.example.todoappfilestorageservice.controller;
 
-import com.example.studentreportwebservice.domain.SubmitBody;
-import com.example.studentreportwebservice.entity.ReportEntity;
-import com.example.studentreportwebservice.service.ReportService;
+import com.example.todoappfilestorageservice.domain.SubmitBody;
+import com.example.todoappfilestorageservice.entity.FileEntity;
+import com.example.todoappfilestorageservice.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.Optional;
-
 @Controller
 //@RequestMapping(path = "/test")
-@RequestMapping(path = "/reports")
+@RequestMapping(path = "/api/files")
 public class MainController {
     @Autowired
-    private ReportService reportService;
+    private FileService fileService;
 
-    @PostMapping(path="/submit")
-    public @ResponseBody String submitReport (@RequestBody SubmitBody body){
+    @PostMapping(path="/upload")
+    public @ResponseBody String uploadReport (@RequestParam("file")MultipartFile file){
 
-       return reportService.submit(body);
-
+       return fileService.upload(file);
     }
 
-    @GetMapping("/download/{studentId}")
-    public ResponseEntity<byte[]> downloadReport(@PathVariable Integer studentId) {
+    @GetMapping("/download/{fileId}")
+    public ResponseEntity<byte[]> downloadReport(@PathVariable Integer fileId) {
 
-        return reportService.download(studentId);
+        return fileService.download(fileId);
     }
 
+    /*
     @PostMapping(path = "/validate/studentId")
     public @ResponseBody String validateReport(
             @PathVariable Integer studentId
@@ -45,10 +38,15 @@ public class MainController {
 
     }
 
+     */
+
+    /*
     @PostMapping("/vote/{role}/{studentId}")
     public @ResponseBody String submitTeacherVote(@PathVariable("studentId") Integer studentId,@PathVariable("role") String role, @RequestBody Integer vote){
         return reportService.submitVote(studentId, role, vote);
     }
+
+     */
 
 //    @PostMapping("/vote/tutor/{studentId}")
 //    public @ResponseBody String submitTutorVote(@PathVariable Integer studentId, @RequestParam Integer tutorVote) {
@@ -85,8 +83,8 @@ public class MainController {
     }*/
 
     @GetMapping("/all")
-    public @ResponseBody Iterable<ReportEntity> getAllReports() {
-        return reportService.getAll();
+    public @ResponseBody Iterable<FileEntity> getAllFiles() {
+        return fileService.getAll();
 //        return reportRepository.findAll();
     }
 }

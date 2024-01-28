@@ -1,8 +1,8 @@
-package com.example.studentreportwebservice.service;
+package com.example.todoappfilestorageservice.service;
 
-import com.example.studentreportwebservice.domain.SubmitBody;
-import com.example.studentreportwebservice.entity.ReportEntity;
-import com.example.studentreportwebservice.repository.ReportRepository;
+import com.example.todoappfilestorageservice.domain.SubmitBody;
+import com.example.todoappfilestorageservice.entity.FileEntity;
+import com.example.todoappfilestorageservice.repository.FileRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,67 +11,64 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public  class ReportService {
+public  class FileService {
     @Autowired
-    ReportRepository reportRepository;
+    FileRepository fileRepository;
 
 
     @Transactional
-    public @ResponseBody String submit(SubmitBody body){
+    public @ResponseBody String upload(MultipartFile file){
 
         try {
-            if (body.getFile().isEmpty()) {
+            if (file.isEmpty()) {
                 return "The file you submitted is empty. Please submit a valid file.";
             }
 
-            ReportEntity report = new ReportEntity();
-            report.setStudentId(body.getStudentId());
-            report.setFile(body.getFile().getBytes());
-            report.setTeacherId(body.getTeacherId());
-            report.setTutorId(body.getTutorId());
-            report.setUploadDate(new Date());
-            System.out.println(report);
-            this.save(report);
-//        reportRepository.save(p);
-            return "Report submitted successfully!";
+            FileEntity fileEntity = new FileEntity();
+            fileEntity.setFile(file.getBytes());
+            fileEntity.setUploadDate(new Date());
+            System.out.println(file);
+            this.save(fileEntity);
+//
+            return "File uploaded successfully!";
         } catch (IOException e) {
             return "Error while processing the file: " + e.getMessage();
         }
     }
 
     @Transactional
-    public ResponseEntity<byte[]> download(Integer studentId){
+    public ResponseEntity<byte[]> download(Integer fileId){
 
-        Optional<ReportEntity> optionalReport = this.getReportById(studentId);
+        Optional<FileEntity> optionalFile = this.getFileById(fileId);
 
-        if (optionalReport.isPresent()) {
-            ReportEntity report = optionalReport.get();
+        if (optionalFile.isPresent()) {
+            FileEntity file = optionalFile.get();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("attachment", "report.pdf");
-            return new ResponseEntity<>(report.getFile(), headers, HttpStatus.OK);
+            headers.setContentDispositionFormData("attachment", "file.pdf");
+            return new ResponseEntity<>(file.getFile(), headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
 
-
+/*
     @Transactional
     public @ResponseBody String validate(Integer studentId){
 
         try {
-            Optional<ReportEntity> optionalReport = this.getReportById(studentId);
+            Optional<FileEntity> optionalReport = this.getReportById(studentId);
 
             if (optionalReport.isPresent()) {
-                ReportEntity report = optionalReport.get();
+                FileEntity report = optionalReport.get();
                 Integer teacherVote = report.getTeacherVote();
                 Integer tutorVote = report.getTutorVote();
                 report.getTutorVote();
@@ -91,14 +88,16 @@ public  class ReportService {
         }
     }
 
+ */
+/*
     @Transactional
     public @ResponseBody String submitVote(Integer studentId, String role, Integer vote){
 
         try {
-            Optional<ReportEntity> optionalReport = this.getReportById(studentId);
+            Optional<FileEntity> optionalReport = this.getReportById(studentId);
 
             if (optionalReport.isPresent()) {
-                ReportEntity report = optionalReport.get();
+                FileEntity report = optionalReport.get();
                 if(Objects.equals(role, "teacher")){
                     report.setTeacherVote(vote);
                     this.save(report);
@@ -124,17 +123,19 @@ public  class ReportService {
 
     }
 
+ */
+
     @Transactional
-    public Iterable<ReportEntity> getAll(){
-        return reportRepository.findAll();
+    public Iterable<FileEntity> getAll(){
+        return fileRepository.findAll();
     }
 
     @Transactional
-    public void save(ReportEntity p){
-        reportRepository.save(p);
+    public void save(FileEntity p){
+        fileRepository.save(p);
     }
 
     @Transactional
-    public Optional<ReportEntity> getReportById(Integer studentId) { return reportRepository.findById(studentId); }
+    public Optional<FileEntity> getFileById(Integer fileId) { return fileRepository.findById(fileId); }
 
 }

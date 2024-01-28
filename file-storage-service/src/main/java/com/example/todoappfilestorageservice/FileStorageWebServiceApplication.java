@@ -1,4 +1,4 @@
-package com.example.studentreportwebservice;
+package com.example.todoappfilestorageservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication()
-public class StudentReportWebServiceApplication {
+public class FileStorageWebServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StudentReportWebServiceApplication.class, args);
+		SpringApplication.run(FileStorageWebServiceApplication.class, args);
 	}
 
 }
