@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoItem from "../ToDoItem/ToDoItem";
 import './ToDoList.css';
+import taskManagerUrl from "../../taskManagerUrl";
 
 function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [text, setText] = useState('');
     const [description, setDescription] = useState('');
 
-    const baseUrl = 'http://localhost:8081';
+    const baseUrl = taskManagerUrl;
 
     useEffect(() => {
         fetchTasks();

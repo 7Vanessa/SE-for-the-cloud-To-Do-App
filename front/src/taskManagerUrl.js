@@ -1,3 +1,3 @@
-const taskManagerUrl = 'http://task-manager:8081'
+const taskManagerUrl = 'http://todoapp.info'
 
 export default taskManagerUrl
