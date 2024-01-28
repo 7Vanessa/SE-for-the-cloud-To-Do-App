@@ -1,0 +1,16 @@
+.file {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.fileName {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.uploadDate {
+    font-style: italic;
+}
