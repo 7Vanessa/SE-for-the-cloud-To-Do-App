@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoList from "../components/ToDoList/ToDoList";
 import FileStorage from "../components/FileStorage/FileStorage";
 
@@ -32,8 +32,16 @@ const styles = {
 function HomePage() {
     const [activeTab, setActiveTab] = useState('Tasks');
 
+    useEffect(() => {
+        const storedActiveTab = localStorage.getItem('activeTab');
+        if (storedActiveTab) {
+            setActiveTab(storedActiveTab);
+        }
+    }, []);
+
     const handleTabChange = (tab) => {
         setActiveTab(tab);
+        localStorage.setItem('activeTab', tab);
     };
 
     return (
