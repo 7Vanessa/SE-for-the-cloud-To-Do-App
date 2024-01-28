@@ -2,9 +2,10 @@
 import React from 'react';
 import axios from 'axios';
 import './ToDoItem.css';
+import taskManagerUrl from "../../taskManagerUrl";
 
 function TodoItem({ task, updateTask, fetchTasks }) {
-    const baseUrl = 'http://localhost:8081';
+    const baseUrl = taskManagerUrl;
 
     const handleToggleCompleted = async () => {
         try {

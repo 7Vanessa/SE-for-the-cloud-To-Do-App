@@ -4,6 +4,9 @@ import com.example.taskmanagerservice.dto.TaskDTO;
 import com.example.taskmanagerservice.entity.Task;
 import com.example.taskmanagerservice.exception.TaskNotFoundException;
 import com.example.taskmanagerservice.repository.TaskRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,18 @@ public class TaskManagerService {
         this.taskRepository = taskRepository;
     }
 
-    public Task createTask(TaskDTO taskDTO) {
+    private Long extractUserIdFromToken(String jwtToken) {
+        Claims claims = Jwts.parserBuilder().setSigningKey("${todo.app.jwtSecret}").build().parseClaimsJws(jwtToken).getBody();
+        return claims.get("userId", Long.class);
+    }
+
+    public Task createTask(TaskDTO taskDTO, String jwtToken) {
+        //Extract the user ID from the JWT token
+        Long userId = extractUserIdFromToken(jwtToken);
+
+        //Use the user ID when creating the task
+        taskDTO.setUserId(userId);
+
         // Convert TaskDTO to Task entity
         Task task = taskDTO.toEntity();
 
@@ -32,6 +46,10 @@ public class TaskManagerService {
         // Retrieve task from the database by ID
         return taskRepository.findById(taskId)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
+    }
+
+    public List<Task> getAllTasksByUserId(Long userId) {
+        return taskRepository.findByUserId(userId);
     }
 
     public List<Task> getAllTasks() {
