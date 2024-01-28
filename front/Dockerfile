@@ -5,13 +5,13 @@ FROM node:14 as builder
 WORKDIR /app
 
 # Copier le fichier package.json et package-lock.json
-COPY front/package*.json ./
+COPY package*.json ./
 
 # Installer les dépendances
 RUN npm install
 
 # Copier le reste des fichiers de l'application
-COPY ./front .
+COPY ./ .
 
 # Construire l'application React
 RUN npm run build

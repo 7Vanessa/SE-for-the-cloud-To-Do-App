@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: taskmanagerservice-mysql-pod
+  labels:
+    app: taskmanagerservice-mysql
+spec:
+  containers:
+    - name: taskmanagerservice-container
+      image: sabrinam2/todoapp-taskmanagerservice:latest
+      ports:
+        - containerPort: 8081
+
+    - name: mysql-container
+      image: sabrinam2/todoapp-mysqltaskmanager:latest
+      env:
+        - name: MYSQL_DATABASE
+          value: task_db
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "YES"
+      ports:
+        - containerPort: 3306
+      volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+
+  volumes:
+    - name: mysql-data
+      emptyDir: {}
+
+  restartPolicy: Always
