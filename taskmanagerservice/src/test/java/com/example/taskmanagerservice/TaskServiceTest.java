@@ -31,12 +31,12 @@ class TaskManagerServiceTest {
 
     @Test
     void testCreateTask() {
-        TaskDTO taskDTO = new TaskDTO(null, "Test Task", "Description", false);
-        Task task = new Task(null, taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.isCompleted());
+        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
+        Task task = new Task(taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.isCompleted());
 
         when(taskRepository.save(any(Task.class))).thenReturn(task);
 
-        Task createdTask = taskManagerService.createTask(taskDTO, "dummyJwtToken");
+        Task createdTask = taskManagerService.createTask(taskDTO);
 
         assertNotNull(createdTask);
         assertEquals(taskDTO.getTitle(), createdTask.getTitle());
@@ -49,7 +49,7 @@ class TaskManagerServiceTest {
     @Test
     void testGetTask() {
         Long taskId = 1L;
-        Task task = new Task(null, "Test Task", "Description", false);
+        Task task = new Task("Test Task", "Description", false);
 
         when(taskRepository.findById(taskId)).thenReturn(Optional.of(task));
 

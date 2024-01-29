@@ -1,0 +1,18 @@
+# Utiliser une image MySQL 8.0
+FROM mysql:8.0
+
+# Définir le plugin d'authentification par défaut
+CMD ["--default-authentication-plugin=caching_sha2_password"]
+
+# Variables d'environnement pour la base de données
+ENV MYSQL_DATABASE files_db
+ENV MYSQL_ALLOW_EMPTY_PASSWORD YES
+
+# Copier le script d'initialisation SQL dans le répertoire approprié
+COPY ./db-init-scripts/init.sql /docker-entrypoint-initdb.d/init.sql
+
+# Exposer le port MySQL (par défaut 3306)
+EXPOSE 3306
+
+# Commande pour démarrer le serveur MySQL
+CMD ["mysqld"]

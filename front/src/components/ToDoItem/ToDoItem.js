@@ -10,7 +10,7 @@ function TodoItem({ task, updateTask, fetchTasks }) {
     const handleToggleCompleted = async () => {
         try {
             const updatedTask = { ...task, completed: !task.completed };
-            await axios.put(`${baseUrl}/api/tasks/${task.id}`, updatedTask);
+            await axios.put(`${baseUrl}/${task.id}`, updatedTask);
             updateTask(updatedTask);
         } catch (error) {
             console.error('Error toggling task completion:', error);
@@ -19,7 +19,7 @@ function TodoItem({ task, updateTask, fetchTasks }) {
 
     const handleDeleteTask = async () => {
         try {
-            await axios.delete(`${baseUrl}/api/tasks/${task.id}`);
+            await axios.delete(`${baseUrl}/${task.id}`);
             fetchTasks();
         } catch (error) {
             console.error('Error deleting task:', error);

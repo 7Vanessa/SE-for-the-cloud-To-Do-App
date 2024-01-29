@@ -29,25 +29,25 @@ public class TaskControllerTest {
 
     @Test
     void testCreateTask() {
-        TaskDTO taskDTO = new TaskDTO(null, "Test Task", "Description", false);
-        Task task = new Task(null, taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.isCompleted());
+        TaskDTO taskDTO = new TaskDTO("Test Task", "Description", false);
+        Task task = new Task(taskDTO.getTitle(), taskDTO.getDescription(), taskDTO.isCompleted());
 
-        when(taskManagerService.createTask(any(TaskDTO.class), anyString())).thenReturn(task);
+        when(taskManagerService.createTask(taskDTO)).thenReturn(task);
 
-        ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO, "dummyJwtToken");
+        ResponseEntity<TaskDTO> response = taskController.createTask(taskDTO);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(taskDTO.getTitle(), response.getBody().getTitle());
         assertEquals(taskDTO.getDescription(), response.getBody().getDescription());
         assertEquals(taskDTO.isCompleted(), response.getBody().isCompleted());
 
-        verify(taskManagerService, times(1)).createTask(any(TaskDTO.class), anyString());
+        verify(taskManagerService, times(1)).createTask(taskDTO);
     }
 
     @Test
     void testGetTask() {
         Long taskId = 1L;
-        Task task = new Task(null,"Test Task", "Description", false);
+        Task task = new Task("Test Task", "Description", false);
 
         when(taskManagerService.getTask(taskId)).thenReturn(task);
 
@@ -64,8 +64,8 @@ public class TaskControllerTest {
     @Test
     void testGetAllTasks() {
         List<Task> tasks = Arrays.asList(
-                new Task(null, "Task 1", "Description 1", false),
-                new Task(null, "Task 2", "Description 2", true)
+                new Task("Task 1", "Description 1", false),
+                new Task("Task 2", "Description 2", true)
         );
 
         when(taskManagerService.getAllTasks()).thenReturn(tasks);
@@ -81,8 +81,8 @@ public class TaskControllerTest {
     @Test
     void testUpdateTask() {
         Long taskId = 1L;
-        TaskDTO updatedTaskDTO = new TaskDTO(null,"Updated Task", "Updated Description", true);
-        Task updatedTask = new Task(null, updatedTaskDTO.getTitle(), updatedTaskDTO.getDescription(), updatedTaskDTO.isCompleted());
+        TaskDTO updatedTaskDTO = new TaskDTO("Updated Task", "Updated Description", true);
+        Task updatedTask = new Task(updatedTaskDTO.getTitle(), updatedTaskDTO.getDescription(), updatedTaskDTO.isCompleted());
 
         when(taskManagerService.updateTask(taskId, updatedTaskDTO)).thenReturn(updatedTask);
 

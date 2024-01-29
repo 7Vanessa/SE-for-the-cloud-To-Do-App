@@ -1,21 +1,21 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: taskmanagerservice-mysql-pod
+  name: filestorageservice-mysql-pod
   labels:
-    app: taskmanagerservice-mysql
+    app: filestorageservice-mysql
 spec:
   containers:
-    - name: taskmanagerservice-container
-      image: sabrinam2/todoapp-taskmanagerservice:latest
+    - name: filestorageservice-container
+      image: sabrinam2/todoapp-filestorageservice:latest
       ports:
-        - containerPort: 8081
+        - containerPort: 8082
 
     - name: mysql-container
-      image: sabrinam2/todoapp-mysqltaskmanagerservice:latest
+      image: sabrinam2/todoapp-mysqlfilestorageservice:latest
       env:
         - name: MYSQL_DATABASE
-          value: task_db
+          value: files_db
         - name: MYSQL_ALLOW_EMPTY_PASSWORD
           value: "YES"
       ports:

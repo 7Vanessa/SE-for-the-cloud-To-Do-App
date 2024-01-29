@@ -19,16 +19,9 @@ public class TaskController {
     private TaskManagerService taskManagerService;
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO, @RequestHeader("Authorization") String jwtToken) {
-        //Validate and extract the JWT token
-        if (jwtToken == null || !jwtToken.startsWith("Bearer")) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-
-        jwtToken = jwtToken.substring(7);
-
+    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
         // Convert TaskDTO to Task entity and save to the database
-        Task savedTask = taskManagerService.createTask(taskDTO, jwtToken);
+        Task savedTask = taskManagerService.createTask(taskDTO);
 
         // Convert saved Task entity back to TaskDTO and return
         TaskDTO responseDTO = convertToTaskDTO(savedTask);
@@ -79,7 +72,6 @@ public class TaskController {
     private TaskDTO convertToTaskDTO(Task task) {
         return new TaskDTO(
                 task.getId(),
-                task.getUserId(),
                 task.getTitle(),
                 task.getDescription(),
                 task.isCompleted()

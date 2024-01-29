@@ -8,10 +8,10 @@ import java.util.Date;
 public class FileEntity {
 
     @Id
-    @Column(name = "fileId")
+    @Column(name = "id")
     private int fileId;
 
-    @Column(name = "fileName", nullable = false)
+    @Column(name = "title", nullable = false)
     private String fileName;
 
     @Lob
@@ -19,7 +19,7 @@ public class FileEntity {
     private byte[] file;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "uploadDate", nullable = false)
+    @Column(name = "date", nullable = false)
     private Date uploadDate;
 
     // Getters and setters for fileName

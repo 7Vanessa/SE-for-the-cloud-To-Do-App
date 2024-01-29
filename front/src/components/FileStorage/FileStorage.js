@@ -16,7 +16,7 @@ function FileStorage() {
 
     const fetchFiles = async () => {
         try {
-            const response = await axios.get(`${baseUrl}/api/files/all`);
+            const response = await axios.get(`${baseUrl}/all`);
             setFiles(response.data);
         } catch (error) {
             console.error('Error fetching files:', error);
@@ -38,7 +38,7 @@ function FileStorage() {
         formData.append('file', selectedFile);
 
         try {
-            await axios.post(`${baseUrl}/api/files/upload`, formData, {
+            await axios.post(`${baseUrl}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

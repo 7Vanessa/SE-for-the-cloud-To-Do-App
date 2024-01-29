@@ -18,7 +18,7 @@ function TodoList() {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get(`${baseUrl}/api/tasks`);
+            const response = await axios.get(`${baseUrl}`);
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -33,7 +33,7 @@ function TodoList() {
                 completed: false,
             };
 
-            await axios.post(`${baseUrl}/api/tasks`, newTask);
+            await axios.post(`${baseUrl}`, newTask);
             fetchTasks();
             setText('');
             setDescription('');
@@ -44,7 +44,7 @@ function TodoList() {
 
     const deleteTask = async (id) => {
         try {
-            await axios.delete(`${baseUrl}/api/tasks/${id}`);
+            await axios.delete(`${baseUrl}/${id}`);
             fetchTasks();
         } catch (error) {
             console.error('Error deleting task:', error);
@@ -59,7 +59,7 @@ function TodoList() {
         try {
             const updatedTask = tasks.find((task) => task.id === id);
             updatedTask.completed = !updatedTask.completed;
-            await axios.put(`${baseUrl}/api/tasks/${id}`, updatedTask);
+            await axios.put(`${baseUrl}/${id}`, updatedTask);
             fetchTasks();
         } catch (error) {
             console.error('Error toggling task completion:', error);

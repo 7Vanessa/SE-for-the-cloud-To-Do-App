@@ -18,7 +18,7 @@ function FileItem({ fileId, fileName, uploadDate }) {
 
     const handleDownload = () => {
         try {
-            window.open(`${baseUrl}/api/files/download/${fileId}`);
+            window.open(`${baseUrl}/download/${fileId}`);
         } catch (error) {
             console.error('Error downloading file:', error);
             setDownloadError('Failed to download the file.');
@@ -27,7 +27,7 @@ function FileItem({ fileId, fileName, uploadDate }) {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`${baseUrl}/api/files/${fileId}`);
+            await axios.delete(`${baseUrl}/${fileId}`);
             window.location.reload(false);
         } catch (error) {
             console.error('Error deleting file:', error);

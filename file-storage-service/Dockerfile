@@ -5,16 +5,16 @@ FROM maven:latest AS BUILD
 WORKDIR /app
 
 # Copier le fichier pom.xml pour télécharger les dépendances
-COPY file-storage-service/pom.xml .
+COPY pom.xml .
 
 # Télécharger les dépendances Maven
 RUN mvn dependency:go-offline
 
 # Copier les sources de l'application
-COPY file-storage-service/src src
+COPY src src
 
 # Copier le fichier de configuration
-COPY file-storage-service/src/main/resources/application.properties src/main/resources/
+COPY src/main/resources/application.properties src/main/resources/
 
 # Compiler les sources et créer le jar exécutable
 RUN mvn package -DskipTests
