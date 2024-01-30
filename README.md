@@ -88,7 +88,7 @@ http://todoapp.info/
 
 The necessary commands have been listed in the `deploy.sh` file for Linux or the `deploy.bat` file for Windows.
 
-**To use this file you must have completed the following steps:**
+1. **To use this file you must have completed the following steps:**
 
 **On Linux:** edit the `/etc/hosts` file and add at the bottom values for:
 
@@ -98,7 +98,7 @@ The necessary commands have been listed in the `deploy.sh` file for Linux or the
 
 `127.0.0.1 todoapp.info`
 
-Once this configuration is done, this command will automatically launch all the necessary commands listed above for the deployment of the services and the ingress configuration:
+2. Once this configuration is done, this command will automatically launch all the necessary commands listed above for the deployment of the services and the ingress configuration:
 
 **On Windows, run:**
 
@@ -111,7 +111,7 @@ Once this configuration is done, this command will automatically launch all the 
    ./deploy.sh
    ```
 
-At the end of the execution, you must use the following commands to start a Minikube tunnel:
+3. At the end of the execution, you must use the following commands to start a Minikube tunnel:
 
  ```bash
    # Enable Ingress DNS addon:
@@ -121,9 +121,9 @@ At the end of the execution, you must use the following commands to start a Mini
     minikube tunnel
    ```
 
-Then check in your Web browser:
+4. Then check in your Web browser:
 
-http://todoapp.info/
+     http://todoapp.info/
 
 
 ## Usage
