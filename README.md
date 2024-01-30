@@ -9,6 +9,10 @@ This repository contains the source code for a TodoApp application built with Ku
 - Sabrina MOHAMMEDI
 - Vanessa MOHAMMEDI
 
+## Diagram
+
+![architecture_diagram.png](architecture_diagram.png)
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
