@@ -51,13 +51,34 @@ Before you begin, ensure you have the following installed:
     
     ## Ingress configuration:
     kubectl apply -f ingress.yaml
-    
-    # Enable Ingress DNS addon:
+   ```
+
+### Retrieve the IP address of Ingress:
+
+   ```bash
+   kubectl get ingress
+   ```
+
+**On Linux:** edit the `/etc/hosts` file and add at the bottom values for:
+
+`ADDRESS     HOSTS`
+
+**On Windows:** edit the `c:\windows\system32\drivers\etc\hosts` file, add
+
+`127.0.0.1 todoapp.info`
+
+Then check in your Web browser:
+
+http://todoapp.info/
+
+### Start a Minikube tunnel
+   ```bash
+   # Enable Ingress DNS addon:
     minikube addons enable ingress-dns
     
     # Start Minikube tunnel:
     minikube tunnel
-    ```
+   ```
 
 ## Usage
 
