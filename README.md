@@ -67,10 +67,6 @@ Before you begin, ensure you have the following installed:
 
 `127.0.0.1 todoapp.info`
 
-Then check in your Web browser:
-
-http://todoapp.info/
-
 ### Start a Minikube tunnel
    ```bash
    # Enable Ingress DNS addon:
@@ -79,6 +75,10 @@ http://todoapp.info/
     # Start Minikube tunnel:
     minikube tunnel
    ```
+
+Then check in your Web browser:
+
+http://todoapp.info/
 
 ## Usage
 
