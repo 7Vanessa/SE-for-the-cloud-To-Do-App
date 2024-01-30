@@ -22,5 +22,3 @@ kubectl apply -f file-storage-service/filestorageservice-mysql-pod.yaml
 kubectl apply -f file-storage-service/filestorageservice-service.yaml
 
 kubectl apply -f ingress.yaml
-minikube addons enable ingress-dns
-minikube tunnel
